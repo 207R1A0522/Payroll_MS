@@ -1,0 +1,361 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admindashboard.Master.cs" Inherits="Payroll_Mangmt_sys.Site1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    
+
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-dmY5yBpevQifPnLARkiS5QAMhHGhjAhpx6y0zzyWuuW6zRGw2dzlUfXDBbFa4AdJd3GcUCzrARa/6+zRzO2Ag==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            
+        }
+
+        .sidebar {
+            background-color: #27293d;
+            color: #fff;
+            width: 200px;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 20px;
+        }
+
+        .menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu li {
+            margin-bottom: 10px;
+        }
+
+        .menu li a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            display: block;
+            padding: 12px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .menu li a:hover {
+            background-color: #1c1e31;
+        }
+
+        .menu li.active a {
+            background-color: #1c1e31;
+            color: #ff5f40;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        /* Optional: Add a nice box shadow effect */
+        .sidebar {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        
+        /* Optional: Add a nice gradient background */
+        
+       .btn-logout {
+        background-color: #ff5f40; /* Choose your desired background color */
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+        width: 100%;
+        text-align: center;
+    }
+
+    .btn-logout:hover {
+        background-color: #ff3d20; /* Change the background color on hover */
+    }
+    .location-label {
+        font-size: 16px; /* Adjust the font size as needed */
+        font-weight: normal; /* Remove bold styling if not needed */
+        color: #00FF00; /* Adjust the color as needed */
+       
+    }
+    .btn-logout {
+    background-color: #ff5f40; /* Choose your desired background color */
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    text-align: center;
+}
+
+.btn-logout:hover {
+    background-color: #ff3d20; /* Change the background color on hover */
+}
+.viewdetails {
+    font-size: 14px;
+    color: skyblue;
+    font-weight: normal;
+    transition: color 0.3s; /* Add a smooth color transition effect */
+}
+
+.viewdetails:hover {
+    color: teal; /* Change the color on hover */
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    max-width: 400px; /* Set your desired maximum width */
+    height: auto; /* Increase the height as needed */
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Apply the hand-drawn pattern as the background for the modal content */
+.modal-content {
+    background-color: #fff; /* Change to your desired background color */
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    border-radius: 5px;
+    color: #000; /* Set text color to contrast with the background */
+    font-weight: 600;
+}
+
+/* Style the headings */
+.modal-content h1 {
+    font-size: 24px;
+    color: #333; /* Heading color */
+}
+
+/* Style the values */
+.modal-content p {
+    font-size: 18px;
+    color: #555; /* Value color */
+    margin-bottom: 10px; /* Add some spacing between values */
+}
+
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #888; /* Set the close button color to contrast with the background */
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #ff5f40; /* Change the close button color on hover to match your theme */
+}
+.location-link {
+    font-size: 16px;
+    color: lightcoral;
+    text-decoration: none;
+}
+
+.location-link:hover {
+    color: darkgrey; /* Change the color to your desired color on hover */
+}
+
+
+
+
+    </style>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+   <form id="admindashboard" runat="server">
+        <div class="sidebar">
+            <div class="logo">Payroll System
+                <label id="LocationLabel" class="location-label">Location: <%= Session["SelectedLocation"] %></label>
+               <br />
+                    <a class="viewdetails" href="javascript:void(0);" onclick="openUserProfileModal()">User Profile</a>
+                <br /> <br />
+                 <% if (Session["LoginLocation"] != null && Session["LoginLocation"].ToString() == "Medchal") 
+                     { %>
+                        <a href="Intermediate_Superadmin.aspx" class="location-link">Back to Locations</a>
+                    <% } 
+                 %>
+
+
+                
+            </div>
+            
+            <br />
+            <ul class="menu">
+                 
+               <li id="homeMenuItem"><a href="Intermediate_Superadmin.aspx?location=<%= Session["SelectedLocation"] %>">Home</a></li>
+                <li><a href="AllEmployees.aspx">Employee Directory</a></li>
+                <li><a href="Salary.aspx">Salary</a></li>
+                <li><a href="Attendance.aspx">Employee Attendance</a></li>
+                <li><a href="Leave.aspx">Leave</a></li>
+                <li><a href="Employee_Search.aspx">Employee Search</a></li>
+                 <li><a href="Payroll.aspx">Payroll</a></li>
+            </ul>
+            <br />
+           
+            <button type="button" id="btnLogout" class="btn-logout" onclick="logout()" ClientIDMode="Static">Logout</button>
+
+
+
+
+
+        </div>
+        <div class="content">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+
+        
+
+    </form>
+    <!-- Modal dialog for user details -->
+    <div id="userProfileModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeUserProfileModal()">&times;</span>
+            <h1>User Profile</h1>
+            <!-- Placeholder to display user profile details -->
+            <div id="userProfileDetails">
+                <!-- User profile details will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+
+    <script>
+       
+        // Function to open the user details modal
+        function openUserProfileModal() {
+            // Display the modal
+            $("#userProfileModal").css("display", "block");
+
+            // Fetch and display user details when the modal is opened
+            fetchUserProfileDetails();
+        }
+
+        // Function to close the user details modal
+        function closeUserProfileModal() {
+            // Close the modal
+            $("#userProfileModal").css("display", "none");
+        }
+
+        // Function to fetch and display user profile details based on session-stored location
+        function fetchUserProfileDetails() {
+            var location = '<%= Session["SelectedLocation"] %>';
+
+            $.ajax({
+                type: "POST",
+                url: "Admindashboard.aspx/GetUserProfileDetails",
+                data: JSON.stringify({ location: location }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    var userProfileDetails = JSON.parse(data.d);
+
+                    if (userProfileDetails) {
+                        // Display user details in the modal
+                        $("#userProfileDetails").html("Name: " + userProfileDetails.UserName +
+                            "<br>Email: " + userProfileDetails.Email +
+                            "<br>Location: " + userProfileDetails.Location +
+                            "<br>Role: " + userProfileDetails.Role);
+                    } else {
+                        // Handle the case where user profile details are not valid
+                        $("#userProfileDetails").html("User profile details not found.");
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                    // Handle the error, if any
+                }
+            });
+        }
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                // Get the current page URL
+                var currentPageUrl = window.location.href; // Get the complete URL
+
+                // Get the menu items and iterate through them
+                $(".menu li").each(function () {
+                    // Get the link URL of each menu item
+                    var menuLink = $(this).find("a").attr("href");
+
+                    // Compare the link URL with the current page URL
+                    if (currentPageUrl.includes(menuLink)) {
+                        // If the link URL is part of the current page URL, add the "active" class to the menu item
+                        $(this).addClass("active");
+                    }
+                });
+            });
+        </script>
+
+
+
+    <script>
+        function logout() {
+            $.ajax({
+                type: "POST",
+                url: "login1.aspx/Logout", // Replace with your actual page name
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    // Redirect to the login page
+                    window.location.href = response.d;
+                },
+                error: function (error) {
+                    // Handle the error, if any
+                    console.log(error);
+                }
+            });
+        }
+
+
+       
+    </script>
+
+</body>
+</html>
